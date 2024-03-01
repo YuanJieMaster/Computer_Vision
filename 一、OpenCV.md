@@ -43,9 +43,9 @@ make -j8
 ```
 sudo make install
 ```
-![Alt text](image-2.png)
+![Alt text](./pictures1/image-2.png)
 :x:安装过程中出错了,报错设备上空间不够，但是我明明划了100GB的磁盘空间  
-![Alt text](image-3.png)
+![Alt text](./pictures1/image-3.png)
 打开磁盘资源管理器，看一下是根文件夹不足，为什么主文件夹只有2.7GB  
 下载安装gparted来进行磁盘管理  
 ```
@@ -77,8 +77,8 @@ sudo mount -o remount,rw /dev/sda3
 ```
 然后通过gparted扩大主文件夹  
 成功了成功了成功了！:o::laughing::laughing::laughing:  
-![Alt text](image-4.png)
-![Alt text](image-5.png)
+![Alt text](./pictures1/image-4.png)
+![Alt text](./pictures1/image-5.png)
 环境配置  
 打开/etc/ld.so.conf  
 ```
@@ -154,7 +154,7 @@ make
 ```
 "Hello,OpenCV"安装成功:laughing:  
 
-![Alt text](image.png)  
+![Alt text](./pictures1/image.png)  
 
 ### 下载dlib：  
 ```c
@@ -234,7 +234,7 @@ g++ show_picture.cpp -o show_picture `pkg-config --cflags --libs opencv`
 ```
 
 效果图
-![alt text](image-11.png) 
+![alt text](./pictures1/image-11.png) 
 
 
 #### 1.2 图像腐蚀  
@@ -268,7 +268,7 @@ g++ eroded_picture.cpp -o eroded_picture `pkg-config --cflags --libs opencv`
 ```
 
 效果图
-![alt text](image-12.png)
+![alt text](./pictures1/image-12.png)
 
 
 #### 1.3 图像模糊  
@@ -298,7 +298,7 @@ g++ blured_picture.cpp -o blured_picture `pkg-config --cflags --libs opencv`
 ```
 
 效果图  
-![alt text](image-16.png)
+![alt text](./pictures1/image-16.png)
 
 #### 1.4 边缘检测  
 :keyboard:
@@ -338,7 +338,7 @@ g++ cannied_picture.cpp -o cannied_picture `pkg-config --cflags --libs opencv`
 ```
 
 效果图  
-![alt text](image-17.png)
+![alt text](./pictures1/image-17.png)
 
 
 ### 2 RGB三通道  
@@ -363,7 +363,7 @@ int main()
 ```
 
 效果图
-![alt text](image-18.png)
+![alt text](./pictures1/image-18.png)
 
 
 #### 2.2 通道错位  
@@ -401,7 +401,7 @@ int main()
 ```
 
 效果图
-![alt text](image-19.png)
+![alt text](./pictures1/image-19.png)
 
 
 
@@ -493,7 +493,7 @@ g++ show_picture.cpp -o show_picture `pkg-config --cflags --libs opencv`
 ./show_picture
 ```
 成功
-![alt text](image-9.png)
+![alt text](./pictures1/image-9.png)
 
 ##### （2）改变输出图像的大小 :white_check_mark:
 
@@ -545,7 +545,7 @@ g++ change_picture_size.cpp -o change_picture_size `pkg-config --cflags --libs o
 ```
 
 效果图
-![alt text](image-20.png)
+![alt text](./pictures1/image-20.png)
 
 
 
@@ -617,10 +617,10 @@ int main() {
 ```
 
 效果图
-![alt text](image-21.png)
+![alt text](./pictures1/image-21.png)
 
 如果没有imshow则会是这样  
-![alt text](image-22.png)
+![alt text](./pictures1/image-22.png)
 
 ```c
 void cv::moveWindow(const String& winname, int x, int y);
@@ -665,7 +665,7 @@ int main() {
 ```
 
 效果图
-![alt text](image-23.png)
+![alt text](./pictures1/image-23.png)
 
 四张图片并没有分布在屏幕四角  
 moveWindow函数并没有发挥作用  
@@ -711,7 +711,7 @@ int main() {
 ```
 
 效果图
-![alt text](image-24.png)
+![alt text](./pictures1/image-24.png)
 
 并没有解决问题，moveWindow函数看来还是没有发挥作用  
 
@@ -964,7 +964,7 @@ template<typename _Tp, int cn> class Vec;
 // _Tp：表示向量中每个元素的数据类型。在Vec3b中，_Tp是uchar，即无符号字符。
 // cn：表示向量的长度，即元素的个数。在Vec3b中，cn是3，表示向量的长度为3。
 ```
-![alt text](image-25.png)
+![alt text](./pictures1/image-25.png)
 
 ##### （2）将一张彩色图片每个像素的RGB值改为三通道均值average:white_check_mark:
 
@@ -995,20 +995,20 @@ int main(){
 ```
 
 效果图
-![alt text](image-26.png)
+![alt text](./pictures1/image-26.png)
 
 一片漆黑，边缘有些小色块，完全失败了  
 检查了一下Vec3b打错了...改过来就好了  
 
 效果图
-![alt text](image-27.png)
+![alt text](./pictures1/image-27.png)
 
 将三通道都改成平均值似乎让图片变成灰色了  
 应该是因为三通道的值相同，颜色就会呈现出黑白  
 原图三通道的值越大，转变后的颜色越亮  
 大概就是保留住了原图的光暗对比
 
-![alt text](image-28.png)
+![alt text](./pictures1/image-28.png)
 
 
 
@@ -1059,7 +1059,7 @@ int main() {
 }
 ```
 
-![alt text](image-30.png)
+![alt text](./pictures1/image-30.png)
 
 
 ##### （2）手动实现threshold:white_check_mark:
@@ -1092,7 +1092,7 @@ int main(){
 ```
 
 效果图
-![alt text](image-29.png)
+![alt text](./pictures1/image-29.png)
 
 
 
@@ -1140,7 +1140,7 @@ int main(){
 ```
 
 效果图
-![alt text](image-31.png)
+![alt text](./pictures1/image-31.png)
 
 ##### （3）对拷贝后的图像进行任务三的处理:white_check_mark:
 :keyboard:
@@ -1171,7 +1171,7 @@ int main(){
 
 ```
 浅拷贝效果图
-![alt text](image-32.png)
+![alt text](./pictures1/image-32.png)
 
 
 ```cpp
@@ -1201,7 +1201,7 @@ int main(){
 
 ```
 深拷贝效果图
-![alt text](image-33.png)
+![alt text](./pictures1/image-33.png)
 
 
 #### python
@@ -1246,7 +1246,7 @@ int main()
 ```
 
 效果图
-![alt text](image-18.png)
+![alt text](./pictures1/image-18.png)
 
 #### python
 
@@ -1311,10 +1311,10 @@ int main(){
 }
 ```
 效果图gamma=2.2
-![alt text](image-34.png)
+![alt text](./pictures1/image-34.png)
 
 效果图gamma=1/2.2
-![alt text](image-35.png)
+![alt text](./pictures1/image-35.png)
 
 
 #### python
@@ -1392,7 +1392,7 @@ int main(){
 }
 ```
 效果图
-![alt text](image-36.png)
+![alt text](./pictures1/image-36.png)
 
 经过RGB到HSV颜色空间的转换后，图片在视觉上会发生变化，因为不同的颜色空间表示方式会影响像素的颜色呈现
 
@@ -1437,7 +1437,7 @@ int main(){
 }
 ```
 效果图
-![alt text](image-38.png)
+![alt text](./pictures1/image-38.png)
 
 
 ##### （4）思考在不同光线下参数应该怎么改
@@ -1473,7 +1473,7 @@ int main(){
 ```
 
 效果图
-![alt text](image-39.png)
+![alt text](./pictures1/image-39.png)
 
 ##### （2）画线:white_check_mark:
 
@@ -1507,7 +1507,7 @@ int main(){
 ```
 
 效果图
-![alt text](image-40.png)
+![alt text](./pictures1/image-40.png)
 
 ##### （3）画圆:white_check_mark:
 
@@ -1546,7 +1546,7 @@ int main(){
 ```
 
 效果图
-![alt text](image-41.png)
+![alt text](./pictures1/image-41.png)
 
 ##### （4）画矩形:white_check_mark:
 
@@ -1594,7 +1594,7 @@ int main() {
 ```
 
 效果图
-![alt text](image-42.png)
+![alt text](./pictures1/image-42.png)
 
 #### python
 
@@ -1658,7 +1658,7 @@ int main()
 ```
 
 效果图
-![alt text](image-43.png)
+![alt text](./pictures1/image-43.png)
 
 ##### （2）膨胀
 
@@ -1700,7 +1700,7 @@ int main()
 ```
 
 效果图
-![alt text](image-44.png)
+![alt text](./pictures1/image-44.png)
 
 ##### （3）开运算
 
@@ -1728,7 +1728,7 @@ int main()
 ```
 
 效果图
-![alt text](image-45.png)
+![alt text](./pictures1/image-45.png)
 实现了去除一些小白点
 
 ##### （4）闭运算
@@ -1757,7 +1757,7 @@ int main()
 ```
 
 效果图
-![alt text](image-46.png)
+![alt text](./pictures1/image-46.png)
 实现了去除一些小黑点
 
 #### python 
@@ -1789,11 +1789,11 @@ Canny算子的原理如下：
 2、计算梯度(Gradient Calculation)：然后，对平滑后的图像使用一组滤波器（通常是Sobel算子）计算图像的梯度。这一步得到了图像中每个像素点的梯度强度和方向。
 
 使用sobel算子
-![alt text](image-47.png)  
+![alt text](./pictures1/image-47.png)  
 计算得到梯度幅值G和梯度方向θ
-![alt text](image-48.png)  
-![alt text](image-49.png)  
-![alt text](image-50.png)
+![alt text](./pictures1/image-48.png)  
+![alt text](./pictures1/image-49.png)  
+![alt text](./pictures1/image-50.png)
 
 3、非极大值抑制(Non-maximum Suppression)：在这一步，算法会对图像中的梯度幅值进行进一步处理，以确保边缘像素点是局部梯度的局部最大值。这样可以得到一个更细化的边缘图像。
 
