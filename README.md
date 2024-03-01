@@ -830,7 +830,7 @@ cv2.waitKey(0)    //
 cv2.destroyAllWindows()
 ```
 
-![Alt text](image-6.png)
+![Alt text](./pictures1/image-6.png)
 轻松拿下！！:laughing:
 
 
@@ -946,7 +946,7 @@ cv2.resizeWindow('Top Left', top_left.shape[1], top_left.shape[0])  # 调整窗�
 
 ### 2、了解OpenCV处理单个像素和通道的方法，将一张彩色图片每个像素的RGB值改为三通道均值average。  
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）了解OpenCV处理单个像素和通道的方法:white_check_mark:
 
@@ -1023,7 +1023,7 @@ int main(){
 
 ### 3、了解threshold函数原理，并手动实现，即在任务二的基础上，在最前面声明一个变量，遍历每一个像素，当average值大于变量值时设为255，反之为0，观察不同变量值处理结果。  
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）了解threshold函数原理:white_check_mark:
 
@@ -1104,7 +1104,7 @@ int main(){
 
 ### 4、了解深拷贝与浅拷贝的区别，分别对同一图像进行深浅拷贝，并对拷贝后的图像进行任务三的处理，观察两者有什么区别。  
 
-#### C++  
+#### C++:white_check_mark:  
 
 ##### （1）了解深拷贝与浅拷贝的区别:white_check_mark:
 
@@ -1220,7 +1220,7 @@ int main(){
 
 ### 5、了解通道分离，将同一张彩色图片的三个通道分别分离。  
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）了解通道分离:white_check_mark:
 
@@ -1256,7 +1256,7 @@ int main()
 
 ### 6、了解Gamma矫正原理（为什么、怎么做），并手动实现，使用图片见图6-1、6-2。  
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）了解Gamma矫正原理:white_check_mark:
 
@@ -1328,7 +1328,7 @@ int main(){
 
 ### 7、了解HSV意义，将图片转化到HSV色域，并用inRange分别提取一张复杂彩色图片中红色和蓝色像素的部分，并思考在不同光线下参数应该怎么改。  
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）了解HSV意义:white_check_mark:
 
@@ -1407,7 +1407,7 @@ inRange(hsv,Scalar(hmin,smin,vmin),Scalar(hmax,smax,vmax),mask);
 
 inRange(原图,下限,上限,目标);
 ```
-![alt text](image-37.png)
+![alt text](./pictures1/image-37.png)
 :keyboard:
 ```cpp
 #include <opencv2/opencv.hpp>
@@ -1448,7 +1448,7 @@ int main(){
 
 ### 8、学习OpenCV中基本的绘图功能，实现：画点、画线、画圆、画矩形。
 
-#### C++
+#### C++:white_check_mark:
 
 ##### （1）画点:white_check_mark:
 :keyboard:
@@ -1609,7 +1609,7 @@ int main() {
 
 ### 9、了解腐蚀、膨胀、开运算和闭运算，使用不同形状大小的算子，使用图片见图9。
 
-#### C++
+#### C++:white_check_mark:
 
 图像形态学操作 – 基于形状的一系列图像处理操作的合集，主要是基于集合论基础上的形态学数学
 
@@ -1809,10 +1809,77 @@ Canny算子的原理如下：
 总体来说，Canny算子通过这一系列步骤，能够准确地检测图像中的边缘，并且对噪声有很好的抵抗能力，被广泛应用于图像处理和计算机视觉任务中。
 
 
-##### （2）手动实现canny
+### 10、了解canny算子原理（以及其进⼀步改进方法），并手动实现。
+
+#### C++:white_check_mark:
+
+##### （1）了解canny算子原理（以及其进⼀步改进方法）:white_check_mark:
+
+Canny算子是一种经典的边缘检测算法，被广泛应用于图像处理和计算机视觉领域。它由John F. Canny于1986年提出，并以其名字命名。
+
+Canny算子的原理如下：
+
+1、高斯滤波(Gaussian Smoothing)：首先，对图像进行高斯平滑处理，以减少噪声的影响。高斯滤波器通过对图像进行卷积来模糊图像，使得图像中的噪声得到抑制。
+
+边缘检测对噪声比较敏感，通过高斯滤波降噪可以达到更好的效果  
+
+2、计算梯度(Gradient Calculation)：然后，对平滑后的图像使用一组滤波器（通常是Sobel算子）计算图像的梯度。这一步得到了图像中每个像素点的梯度强度和方向。
+
+使用sobel算子
+![alt text](./pictures1/image-47.png)  
+计算得到梯度幅值G和梯度方向θ
+![alt text](./pictures1/image-48.png)  
+![alt text](./pictures1/image-49.png)  
+![alt text](./pictures1/image-50.png)
+
+3、非极大值抑制(Non-maximum Suppression)：在这一步，算法会对图像中的梯度幅值进行进一步处理，以确保边缘像素点是局部梯度的局部最大值。这样可以得到一个更细化的边缘图像。
+
+遍历所有像素点，判断与周围像素点具有相同方向梯度的极大值，保留这些极大值把其他像素归为0  
+
+4、双阈值检测(Double Thresholding)：Canny算子引入了两个阈值：高阈值和低阈值。如果某个像素的梯度值超过了高阈值，那么它被认为是强边缘；如果梯度值在低阈值和高阈值之间，那么它被认为是弱边缘；如果梯度值低于低阈值，那么它被认为是非边缘。通过这一步，可以将图像中的边缘像素分为强边缘和弱边缘。
+
+与强边缘连着的弱边缘会被保留，不连着的会被舍弃，非边缘直接舍弃
+
+5、边缘跟踪与边缘连接(Edge Tracking by Hysteresis)：最后，通过分析图像中的像素点，将弱边缘像素连接到强边缘像素，从而形成完整的边缘。
 
 
+总体来说，Canny算子通过这一系列步骤，能够准确地检测图像中的边缘，并且对噪声有很好的抵抗能力，被广泛应用于图像处理和计算机视觉任务中。
 
+
+##### （2）手动实现canny:white_check_mark:
+
+:keyboard:
+```cpp
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+using namespace cv;
+
+int main()
+{
+    Mat srcImage = imread("./maple_leaf.jpg");
+    imshow("origin_picture", srcImage);
+    Mat dstImage, edge, grayImage;
+
+    //创建与src同类型和大小的矩阵
+    dstImage.create( srcImage.size(), srcImage.type());
+
+    //转灰
+    cvtColor( srcImage, grayImage, COLOR_BGR2GRAY ); //按OpenCV3的来
+
+    blur( grayImage, edge, Size(3,3) );
+
+    Canny(edge, edge, 3, 9, 3); //运行Canny
+
+    imshow("Cannied_picture", edge);
+
+    waitKey(0);
+
+    return 0;
+}
+```
+
+效果图
+![alt text](./pictures1/image-51.png)
 
 #### python
 
@@ -1825,6 +1892,206 @@ Canny算子的原理如下：
 
 
 
-### 11、对图11进行合适的预处理，然后进⾏连通域标（connectedComponentsWithStats函数），并绘制出每⼀个硬币的重心，并将硬币个数输出到终端
+### 11、对图11进行合适的预处理，然后进行连通域标记（connectedComponentsWithStats函数），并绘制出每⼀个硬币的重心，并将硬币个数输出到终端
+
+#### C++:white_check_mark:
+
+connectedComponentsWithStats函数原型
+```c
+int connectedComponentsWithStats(InputArray image, OutputArray labels, OutputArray stats, OutputArray centroids,
+                                int connectivity=8, int ltype=CV_32S);
+
+image：输入的二值化图像，其中非零像素被视为对象，零像素被视为背景。
+labels：输出的标签图像，每个对象都有一个唯一的标签。
+stats：输出的包含每个对象的统计信息的矩阵，每一行包括关于相应对象的统计数据，例如左上角坐标、宽度、高度和像素总数。
+centroids：输出的包含每个对象的重心坐标的矩阵。
+connectivity：对象之间的连接性，可以是 4 或 8。默认为 8，表示八邻域连接。
+ltype：输出标签图像的数据类型，通常为 CV_32S。
+```
+
+connectedComponentsWithStats函数需要输入二值化图像，所以得先将图片二值化，二值化又得先灰度化  
+
+灰度化已经会了  
+```cpp
+    Mat grayImage;
+    cvtColor(image, grayImage, COLOR_BGR2GRAY);
+```
+
+二值化  
+发现之前早就手动实现了二值化
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
+int main(){
+    Mat image = imread("maple_leaf.jpg");
+    
+    int threshold = 127;
+    
+    imshow("origin_picture",image);
+
+    for(int i = 0;i < image.rows;i++){
+        for(int j = 0;j < image.cols;j++){
+            Vec3b pixel = image.at<Vec3b>(i,j);
+            int average = (pixel[0]+pixel[1]+pixel[2])/3.0;
+            if(average > threshold){
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 255;
+            }
+            else{
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 0;
+            }
+        }
+    }
+
+    imshow("binaryzation_picture",image);
+
+    waitKey(0);
+
+    return 0;
+}
+```
+
+效果图
+![alt text](./pictures1/image-52.png)
+
+可以看到有个硬币没有变全白，调整一下阈值
+
+阈值=64
+![alt text](./pictures1/image-53.png)
+
+阈值=80
+![alt text](./pictures1/image-54.png)
+
+多次尝试....
+阈值=84,这个效果比较理想
+![alt text](./pictures1/image-55.png)
+
+如果有细微瑕疵可以考虑用开运算修
+
+实现二值化，之后应用connectedComponentsWithStats函数即可
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+
+int main(){
+    Mat image = imread("11.png");
+    
+    int threshold = 127;
+
+    resize(image, image, Size(500, 450));
+    
+    imshow("origin_picture",image);
+
+    for(int i = 0;i < image.rows;i++){
+        for(int j = 0;j < image.cols;j++){
+            Vec3b pixel = image.at<Vec3b>(i,j);
+            int average = (pixel[0]+pixel[1]+pixel[2])/3.0;
+            if(average > threshold){
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 255;
+            }
+            else{
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 0;
+            }
+        }
+    }
+
+    imshow("binaryzation_picture",image);
+
+    Mat labeledImage;
+    Mat stats, centroids;
+    int numLabels = connectedComponentsWithStats(image, labeledImage, stats, centroids);
+
+    waitKey(0);
+
+    return 0;
+}
+```
+
+这里有个报错，我发现是我没有将图转灰的原因，我只是将三个通道都取了平均值，使得图片在视觉上看来是灰度图，得用    cvtColor(image, image, COLOR_BGR2GRAY);来转灰  
+
+![alt text](./pictures1/image-57.png)
+尝试输出一下硬币数量，是11，多一个
+
+显示一下labeledImage  
+![alt text](./pictures1/image-56.png)
+
+数量多一个的问题可能是因为在进行连通区域标记时，OpenCV会默认将背景视为一个额外的区域，因此会多出一个标记。通常情况下，背景会被标记为0，而物体或目标会从标记1开始递增。
+
+通过依次递增对象的像素值来计数，被识别为同一个对象的会被赋成同一种像素值，即同一种颜色  
+
+背景也会算一个对象，那就简单地减一个1好了  
+
+接下来要画出每个硬币的重心  
+centroids是输出的包含每个对象的重心坐标的矩阵。  centroids 是一个大小为 (numLabels, 2) 的矩阵，其中 numLabels 是连通区域的数量。每行代表一个连通区域，包含两个值，分别是该区域重心的 x 和 y 坐标。  
+从numLabels提取出每个重心的坐标  
+centroids 中的数据类型通常是 CV_64F，64位浮点型。需要（int） 进行类型转换  
+
+最终版
+:keyboard:
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+using namespace std;
+
+int main(){
+    Mat image = imread("11.png");
+    
+    int threshold = 84;
+
+    resize(image, image, Size(500, 450));
+    
+    imshow("origin_picture",image);
+
+    for(int i = 0;i < image.rows;i++){
+        for(int j = 0;j < image.cols;j++){
+            Vec3b pixel = image.at<Vec3b>(i,j);
+            int average = (pixel[0]+pixel[1]+pixel[2])/3.0;
+            if(average > threshold){
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 255;
+            }
+            else{
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 0;
+            }
+        }
+    }
+    
+    cvtColor(image, image, COLOR_BGR2GRAY);
+
+    imshow("binaryzation_picture",image);
+    
+    Mat labeledImage;
+    Mat stats, centroids;
+    int numLabels = connectedComponentsWithStats(image, labeledImage, stats, centroids);
+    
+    printf("%d\n", numLabels-1);
+    
+    labeledImage.convertTo(labeledImage, CV_8U);
+
+
+    normalize(labeledImage, labeledImage, 0, 255, NORM_MINMAX);
+
+
+    imshow("Labeled Picture", labeledImage);
+    
+    cvtColor(image, image, COLOR_GRAY2BGR);
+    
+    for (int i = 1; i < numLabels; ++i) {
+        Point center((int)(centroids.at<double>(i, 0)), (int)(centroids.at<double>(i, 1)));
+        circle(image, center, 3, Scalar(255, 0, 0), -1); //绘制重心
+    }
+    
+    imshow("centers_picture", image);
+
+    waitKey(0);
+
+    return 0;
+}
+```
+
+效果图
+![alt text](./pictures1/image-59.png)
+
+
+#### python
 
 ### 12、对图12进行回形针计数，并标出每个回形针的轮廓和凸包，并比较这两者有什么不同，思考凸包可以用在什么场景。
