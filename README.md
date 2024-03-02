@@ -2095,3 +2095,226 @@ int main(){
 #### python
 
 ### 12、对图12进行回形针计数，并标出每个回形针的轮廓和凸包，并比较这两者有什么不同，思考凸包可以用在什么场景。
+
+#### C++:white_check_mark:
+
+##### （1）标出每个回形针的轮廓:white_check_mark:
+
+尝试把任务11的代码直接套用到回形针上会变成这样  
+![alt text](./pictures1/image-60.png)
+每个回形针因为中间被隔断会被识别成两个对象  
+使用connectedComponentsWithStats函数无法将回形针的轮廓标记出来，要使用findContours函数。
+**(注意：该函数将白色区域当作前景物体。所以findContours()函数是黑色背景下找白色轮廓。)**
+通过findContours函数可以找到图像中的所有轮廓，并可以对其进行进一步处理，如绘制、计数等操作。  
+
+轮廓的发现与绘制,在OpenCV里面利用findContours()函数和drawContours()函数实现这一功能。  
+
+函数原型：
+```c
+void findContours(InputOutputArray image, 
+                  OutputArrayOfArrays contours, 
+                  OutputArray hierarchy, 
+                  int mode, 
+                  int method, 
+                  Point offset=Point());
+
+image：输入的二值图像，通常是经过阈值处理后的图像。输入图像、八位单通道的，背景为黑色的二值图像。（一般是经过Canny、拉普拉斯等边缘检测算子处理过的二值图像）  
+contours：输出参数，用于存储检测到的轮廓。这是一个vector<vector<Point>>类型的数组，每个元素代表一个轮廓，其中Point是表示轮廓点的数据类型。是一个向量，向量的每个元素都是一个轮廓。因此，这个向量的每个元素仍是一个向量。  
+hierarchy：输出参数，可选的层次信息数组，用于表示轮廓的层次结构。这是一个Mat类型的数组。输出各个轮廓的继承关系。hierarchy也是一个向量，长度和contours相等，每个元素和contours的元素对应。hierarchy的每个元素是一个包含四个整型数的向量。  
+mode：轮廓检索模式，指定轮廓的检索方式。              
+    RETR_EXTERNAL：只检测外轮廓。忽略轮廓内部的洞。
+    RETR_LIST：检测所有轮廓，但不建立继承(包含)关系。
+    RETR_TREE：检测所有轮廓，并且建立所有的继承(包含)关系。
+    RETR_CCOMP：检测所有轮廓，但是仅仅建立两层包含关系。  
+method：轮廓逼近方法，指定轮廓的逼近方式。每个轮廓的编码信息。也有四种（常用前两种）
+    CHAIN_APPROX_NONE：把轮廓上所有的点存储。
+    CHAIN_APPROX_SIMPLE：只存储轮廓上的拐点。
+    CHAIN_APPROX_TC89_L1，
+    CHAIN_APPROX_TC89_KCOS使用teh-Chinl chain 近似算法
+
+offset：可选参数，用于指定轮廓偏移量，通常为cv::Point(0, 0)。
+```
+```c
+void drawContours(InputOutputArray image, 
+                  InputArrayOfArrays contours, 
+                  int contourIdx, 
+                  const Scalar& color, 
+                  int thickness = 1, 
+                  int lineType = LINE_8, 
+                  InputArray hierarchy = noArray(), 
+                  int maxLevel = INT_MAX, 
+                  Point offset = Point());
+
+image：要绘制轮廓的图像，通常是彩色图像。
+contours：轮廓数组，是一个vector<vector<Point>>类型的数组，存储检测到的轮廓。
+contourIdx：要绘制的轮廓的索引，可以是轮廓数组中的一个索引值，也可以是-1，表示绘制所有轮廓。
+color：轮廓的颜色，通常是Scalar类型的颜色值，如Scalar(0, 255, 0)表示绿色。
+thickness：轮廓线条的粗细，默认为1。
+lineType：轮廓线条的类型，默认为8-connected线条。
+hierarchy：可选参数，轮廓的层次信息数组。
+maxLevel：可选参数，绘制轮廓的最大层次深度。
+offset：可选参数，轮廓偏移量。
+```
+:keyboard:
+```cpp
+#include <opencv2/opencv.hpp>
+using namespace cv;
+using namespace std;
+
+int main(){
+    Mat image = imread("12.png");
+    
+    int threshold = 64;
+
+    resize(image, image, Size(500, 450));
+    
+    imshow("origin_picture",image);
+
+    for(int i = 0;i < image.rows;i++){
+        for(int j = 0;j < image.cols;j++){
+            Vec3b pixel = image.at<Vec3b>(i,j);
+            int average = (pixel[0]+pixel[1]+pixel[2])/3.0;
+            if(average > threshold){
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 0;
+            }
+            else{
+            	image.at<Vec3b>(i,j)[0] = image.at<Vec3b>(i,j)[1] = image.at<Vec3b>(i,j)[2] = 255;
+            }
+        }
+    }
+    
+    cvtColor(image, image, COLOR_BGR2GRAY);
+
+    imshow("binaryzation_picture",image);
+
+    vector<vector<Point>> contours;
+
+    Mat hierarchy;
+
+    findContours(image, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+
+    cvtColor(image, image, COLOR_GRAY2BGR);
+
+    drawContours(image, contours, -1, Scalar(0, 255, 0));
+    
+    imshow("stroke_picture", image);
+
+    cout << "回形针数量: " << contours.size() << endl;
+
+    waitKey(0);
+
+    return 0;
+}
+```
+
+效果图
+![alt text](./pictures1/image-64.png)
+
+##### （2）标出每个回形针的凸包:white_check_mark:
+
+凸包（Convex Hull）是一个计算几何（图形学）中常见的概念。简单来说，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它是能包含点集中所有点的。  
+
+照着网上的教程优化了一下代码  
+
+```cpp
+#include<opencv2/opencv.hpp>
+#include<iostream>
+using namespace cv;
+using namespace std;
+
+int main()
+{
+    Mat src = imread("12.png");
+
+    //二值化
+    Mat dst, gray, binary;
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU);
+    //THRESH_BINARY | THRESH_OTSU参数的作用是使用OTSU算法确定图像的二值化阈值
+    //形态学去除干扰
+    Mat k = getStructuringElement(MORPH_RECT, Size(3,3), Point(-1, -1));
+    morphologyEx(binary, binary, MORPH_OPEN, k);
+    imshow("binary", binary);
+    //轮廓发现与绘制
+    vector<vector<Point>> contours;
+    findContours(binary, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE, Point());
+    for(size_t t =0; t < contours.size(); t++){
+        vector<Point> hull;
+        convexHull(contours[t], hull);//凸包检测
+        bool isHull = isContourConvex(contours[t]);//判断轮廓是否为凸包
+        printf("test convex of the contours %s", isHull ? "Y" : "N");
+        int len = hull,size();
+        //绘制凸包
+        for(int i = 0; i < hull,size(); i++){
+            circle(src, hull[i], 4, Scalar(255,0,0), 2, 8, 0);
+            line(src, hull[(i+1)%len], Scalar(0, 0, 255), 2, 8, 0);
+            line(src, hull[i%len], hull[(i+1)%len], Scalar(0, 0, 255), 2, 8, 0);//线
+        }
+    }
+    imshow("凸包检测", src);
+}
+```
+
+出问题
+![alt text](./pictures1/image-65.png)
+
+应该是黑白的问题，之前的注意，把二值图反色试试  
+要使二值图反色，可以在阈值化时将 THRESH_BINARY 改为 THRESH_BINARY_INV。这样会使得在阈值以下的像素值变为最大值（255），在阈值以上的像素值变为最小值（0）  
+
+最终版:keyboard:
+```cpp
+#include<opencv2/opencv.hpp>
+#include<iostream>
+using namespace cv;
+using namespace std;
+
+int main()
+{
+    Mat src = imread("12.png");
+    imshow("原图片", src);
+    // 二值化
+    Mat dst, gray, binary;
+    cvtColor(src, gray, COLOR_BGR2GRAY);
+    threshold(gray, binary, 0, 255, THRESH_BINARY_INV | THRESH_OTSU);
+    // 形态学去除干扰
+    Mat k = getStructuringElement(MORPH_RECT, Size(3, 3), Point(-1, -1));
+    morphologyEx(binary, binary, MORPH_OPEN, k);
+    imshow("binary", binary);
+    // 轮廓发现与绘制
+    vector<vector<Point>> contours;
+    findContours(binary, contours, RETR_EXTERNAL, CHAIN_APPROX_NONE, Point());
+    for (size_t t = 0; t < contours.size(); t++) {
+        vector<Point> hull;
+        convexHull(contours[t], hull);//凸包检测
+        bool isHull = isContourConvex(contours[t]);//判断轮廓是否为凸包
+        printf("test convex of the contours %s\n", isHull ? "Y" : "N");
+        int len = hull.size();
+        //绘制凸包
+        for (int i = 0; i < hull.size(); i++) {
+            circle(src, hull[i], 4, Scalar(255, 0, 0), 2, 8, 0);//点
+            line(src, hull[i%len], hull[(i + 1) % len], Scalar(0, 0, 255), 2, 8, 0);//线
+        }
+    }
+    imshow("凸包检测", src);
+    waitKey(0);
+}
+```
+
+效果图
+![alt text](./pictures1/image-66.png)
+
+##### （3）比较这两者有什么不同，思考凸包可以用在什么场景
+
+:robot:  
+轮廓是对象的实际边界线，而凸包是包围对象的最小凸多边形。  
+轮廓可以是非凸的，但凸包一定是凸的。  
+凸包可以过滤掉对象的细小凹陷或突出部分，从而更好地表示对象的整体形状。  
+轮廓是对象的边界，它可以是任意形状的闭合曲线。  
+凸包是包含所有轮廓点的最小凸多边形，它是一个凸多边形。  
+凸包的应用场景：  
+物体识别与分类：凸包可以用于识别和分类物体，通过比较不同物体的凸包形状和大小来进行分类。
+图像处理中的形状简化：凸包可以用于简化复杂形状的轮廓，从而减少计算量和提高处理效率。
+碰撞检测：在计算机图形学和游戏开发中，凸包常被用于碰撞检测，判断物体是否相交或者碰撞。
+手势识别：通过提取手部轮廓的凸包，可以识别手势并进行手势控制。
+
+#### python
