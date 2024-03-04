@@ -946,9 +946,9 @@ cv2.resizeWindow('Top Left', top_left.shape[1], top_left.shape[0])  # 调整窗�
 
 ### 2、了解OpenCV处理单个像素和通道的方法，将一张彩色图片每个像素的RGB值改为三通道均值average。  
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）了解OpenCV处理单个像素和通道的方法:white_check_mark:
+##### （1）了解OpenCV处理单个像素和通道的方法 :white_check_mark:
 
 .at<>()是OpenCV中用于访问像素值的方法
 
@@ -966,7 +966,7 @@ template<typename _Tp, int cn> class Vec;
 ```
 ![alt text](./pictures1/image-25.png)
 
-##### （2）将一张彩色图片每个像素的RGB值改为三通道均值average:white_check_mark:
+##### （2）将一张彩色图片每个像素的RGB值改为三通道均值average :white_check_mark:
 
 思路是设置一个像素变量，遍历每一个变量
 
@@ -1023,9 +1023,9 @@ int main(){
 
 ### 3、了解threshold函数原理，并手动实现，即在任务二的基础上，在最前面声明一个变量，遍历每一个像素，当average值大于变量值时设为255，反之为0，观察不同变量值处理结果。  
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）了解threshold函数原理:white_check_mark:
+##### （1）了解threshold函数原理 :white_check_mark:
 
 threshold函数是OpenCV中用于图像阈值处理的函数。它可以将图像的像素值转换为二进制形式，使得图像中的一些区域变得更加突出或者便于处理。  
 
@@ -1062,7 +1062,7 @@ int main() {
 ![alt text](./pictures1/image-30.png)
 
 
-##### （2）手动实现threshold:white_check_mark:
+##### （2）手动实现threshold :white_check_mark:
 
 上个任务稍加修改  
 :keyboard:
@@ -1104,13 +1104,13 @@ int main(){
 
 ### 4、了解深拷贝与浅拷贝的区别，分别对同一图像进行深浅拷贝，并对拷贝后的图像进行任务三的处理，观察两者有什么区别。  
 
-#### C++:white_check_mark:  
+#### C++ :white_check_mark:  
 
-##### （1）了解深拷贝与浅拷贝的区别:white_check_mark:
+##### （1）了解深拷贝与浅拷贝的区别 :white_check_mark:
 
 浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。浅拷贝和深拷贝的共同点是都指向不同于原对象的新对象，而赋值则是指向同一个对象  
 
-##### （2）分别对同一图像进行深浅拷贝:white_check_mark:
+##### （2）分别对同一图像进行深浅拷贝 :white_check_mark:
 
 深拷贝  
 
@@ -1142,7 +1142,7 @@ int main(){
 效果图
 ![alt text](./pictures1/image-31.png)
 
-##### （3）对拷贝后的图像进行任务三的处理:white_check_mark:
+##### （3）对拷贝后的图像进行任务三的处理 :white_check_mark:
 :keyboard:
 ```cpp
 #include<opencv2/core/core.hpp>
@@ -1220,13 +1220,13 @@ int main(){
 
 ### 5、了解通道分离，将同一张彩色图片的三个通道分别分离。  
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）了解通道分离:white_check_mark:
+##### （1）了解通道分离 :white_check_mark:
 
 通道分离是指将一个多通道图像（例如，RGB彩色图像）拆分成其各个颜色通道的过程。在RGB图像中，每个像素由红色（R）、绿色（G）和蓝色（B）组成，而通道分离允许你将这些颜色通道分别提取出来，形成单独的图像。
 
-##### （2）将同一张彩色图片的三个通道分别分离:white_check_mark:
+##### （2）将同一张彩色图片的三个通道分别分离 :white_check_mark:
 :keyboard:
 ```cpp
 #include <opencv2/opencv.hpp>
@@ -1256,9 +1256,9 @@ int main()
 
 ### 6、了解Gamma矫正原理（为什么、怎么做），并手动实现，使用图片见图6-1、6-2。  
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）了解Gamma矫正原理:white_check_mark:
+##### （1）了解Gamma矫正原理 :white_check_mark:
 
 Gamma矫正是一种图像处理技术，旨在调整图像的亮度和对比度，以更好地适应人眼的感知特性。这个过程涉及使用伽马值对图像进行非线性变换。  
 
@@ -1280,7 +1280,7 @@ Gamma矫正的基本公式为：
 γ=1时，不改变原图像。
 
 
-##### （2）手动实现Gamma矫正:white_check_mark:
+##### （2）手动实现Gamma矫正 :white_check_mark:
 
 先将数值压缩到[0,1]，校正后再还原
 :keyboard:
@@ -1328,9 +1328,9 @@ int main(){
 
 ### 7、了解HSV意义，将图片转化到HSV色域，并用inRange分别提取一张复杂彩色图片中红色和蓝色像素的部分，并思考在不同光线下参数应该怎么改。  
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）了解HSV意义:white_check_mark:
+##### （1）了解HSV意义 :white_check_mark:
 
 HSV是一种描述颜色的模型，它表示颜色的三个属性：色相（Hue）、饱和度（Saturation）和明度（Value）。这种颜色模型在图像处理和计算机视觉中被广泛使用，因为它更符合人类对颜色的感知方式。  
 
@@ -1343,7 +1343,7 @@ HSV是一种描述颜色的模型，它表示颜色的三个属性：色相（Hu
 HSV模型的优点在于，它更容易理解和调整，特别适用于在图像处理中选择特定的颜色范围或进行颜色分析。与RGB模型相比，HSV模型更符合人类对颜色的感知，因此在许多应用中更加实用。  
 
 
-##### （2）将图片转化到HSV色域:white_check_mark:
+##### （2）将图片转化到HSV色域 :white_check_mark:
 
 在 OpenCV 中，cv2.COLOR_ 用于表示颜色空间转换的常量。这些常量定义了不同的颜色空间转换代码，可以在图像处理中使用。
 
@@ -1397,7 +1397,7 @@ int main(){
 经过RGB到HSV颜色空间的转换后，图片在视觉上会发生变化，因为不同的颜色空间表示方式会影响像素的颜色呈现
 
 
-##### （3）用inRange分别提取一张复杂彩色图片中红色和蓝色像素的部分:white_check_mark:
+##### （3）用inRange分别提取一张复杂彩色图片中红色和蓝色像素的部分 :white_check_mark:
 
 inRange函数原型
 ```
@@ -1440,7 +1440,7 @@ int main(){
 ![alt text](./pictures1/image-38.png)
 
 
-##### （4）思考在不同光线下参数应该怎么改
+##### （4）思考在不同光线下参数应该怎么改 :white_check_mark:
 
 在不同光强下适当调整亮度的参数，使得目标颜色落在参数范围内
 
@@ -1448,9 +1448,9 @@ int main(){
 
 ### 8、学习OpenCV中基本的绘图功能，实现：画点、画线、画圆、画矩形。
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）画点:white_check_mark:
+##### （1）画点 :white_check_mark:
 :keyboard:
 ```cpp
 #include<opencv2/opencv.hpp>
@@ -1475,7 +1475,7 @@ int main(){
 效果图
 ![alt text](./pictures1/image-39.png)
 
-##### （2）画线:white_check_mark:
+##### （2）画线 :white_check_mark:
 
 line函数原型
 ```c
@@ -1509,7 +1509,7 @@ int main(){
 效果图
 ![alt text](./pictures1/image-40.png)
 
-##### （3）画圆:white_check_mark:
+##### （3）画圆 :white_check_mark:
 
 circle函数原型  
 ```c
@@ -1548,7 +1548,7 @@ int main(){
 效果图
 ![alt text](./pictures1/image-41.png)
 
-##### （4）画矩形:white_check_mark:
+##### （4）画矩形 :white_check_mark:
 
 cv::Rect()函数原型
 ```c
@@ -1609,13 +1609,13 @@ int main() {
 
 ### 9、了解腐蚀、膨胀、开运算和闭运算，使用不同形状大小的算子，使用图片见图9。
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
 图像形态学操作 – 基于形状的一系列图像处理操作的合集，主要是基于集合论基础上的形态学数学
 
 形态学有四个基本操作：腐蚀、膨胀、开、闭
 
-##### （1）腐蚀:white_check_mark:
+##### （1）腐蚀 :white_check_mark:
 
 最基本的形态学运算之一——腐蚀  
 用暗色部分腐蚀掉高亮部分  
@@ -1771,47 +1771,9 @@ int main()
 ##### （4）闭运算
 
 
-
-### 10、了解canny算子原理（以及其进⼀步改进⽅法），并手动实现。
-
-#### C++
-
-##### （1）了解canny算子原理（以及其进⼀步改进方法）:white_check_mark:
-
-Canny算子是一种经典的边缘检测算法，被广泛应用于图像处理和计算机视觉领域。它由John F. Canny于1986年提出，并以其名字命名。
-
-Canny算子的原理如下：
-
-1、高斯滤波(Gaussian Smoothing)：首先，对图像进行高斯平滑处理，以减少噪声的影响。高斯滤波器通过对图像进行卷积来模糊图像，使得图像中的噪声得到抑制。
-
-边缘检测对噪声比较敏感，通过高斯滤波降噪可以达到更好的效果  
-
-2、计算梯度(Gradient Calculation)：然后，对平滑后的图像使用一组滤波器（通常是Sobel算子）计算图像的梯度。这一步得到了图像中每个像素点的梯度强度和方向。
-
-使用sobel算子
-![alt text](./pictures1/image-47.png)  
-计算得到梯度幅值G和梯度方向θ
-![alt text](./pictures1/image-48.png)  
-![alt text](./pictures1/image-49.png)  
-![alt text](./pictures1/image-50.png)
-
-3、非极大值抑制(Non-maximum Suppression)：在这一步，算法会对图像中的梯度幅值进行进一步处理，以确保边缘像素点是局部梯度的局部最大值。这样可以得到一个更细化的边缘图像。
-
-遍历所有像素点，判断与周围像素点具有相同方向梯度的极大值，保留这些极大值把其他像素归为0  
-
-4、双阈值检测(Double Thresholding)：Canny算子引入了两个阈值：高阈值和低阈值。如果某个像素的梯度值超过了高阈值，那么它被认为是强边缘；如果梯度值在低阈值和高阈值之间，那么它被认为是弱边缘；如果梯度值低于低阈值，那么它被认为是非边缘。通过这一步，可以将图像中的边缘像素分为强边缘和弱边缘。
-
-与强边缘连着的弱边缘会被保留，不连着的会被舍弃，非边缘直接舍弃
-
-5、边缘跟踪与边缘连接(Edge Tracking by Hysteresis)：最后，通过分析图像中的像素点，将弱边缘像素连接到强边缘像素，从而形成完整的边缘。
-
-
-总体来说，Canny算子通过这一系列步骤，能够准确地检测图像中的边缘，并且对噪声有很好的抵抗能力，被广泛应用于图像处理和计算机视觉任务中。
-
-
 ### 10、了解canny算子原理（以及其进⼀步改进方法），并手动实现。
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
 ##### （1）了解canny算子原理（以及其进⼀步改进方法）:white_check_mark:
 
@@ -1846,7 +1808,7 @@ Canny算子的原理如下：
 总体来说，Canny算子通过这一系列步骤，能够准确地检测图像中的边缘，并且对噪声有很好的抵抗能力，被广泛应用于图像处理和计算机视觉任务中。
 
 
-##### （2）手动实现canny:white_check_mark:
+##### （2）手动实现canny :white_check_mark:
 
 :keyboard:
 ```cpp
@@ -1894,7 +1856,7 @@ int main()
 
 ### 11、对图11进行合适的预处理，然后进行连通域标记（connectedComponentsWithStats函数），并绘制出每⼀个硬币的重心，并将硬币个数输出到终端
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
 connectedComponentsWithStats函数原型
 ```c
@@ -2096,9 +2058,9 @@ int main(){
 
 ### 12、对图12进行回形针计数，并标出每个回形针的轮廓和凸包，并比较这两者有什么不同，思考凸包可以用在什么场景。
 
-#### C++:white_check_mark:
+#### C++ :white_check_mark:
 
-##### （1）标出每个回形针的轮廓:white_check_mark:
+##### （1）标出每个回形针的轮廓 :white_check_mark:
 
 尝试把任务11的代码直接套用到回形针上会变成这样  
 ![alt text](./pictures1/image-60.png)
@@ -2210,7 +2172,7 @@ int main(){
 效果图
 ![alt text](./pictures1/image-64.png)
 
-##### （2）标出每个回形针的凸包:white_check_mark:
+##### （2）标出每个回形针的凸包 :white_check_mark:
 
 凸包（Convex Hull）是一个计算几何（图形学）中常见的概念。简单来说，给定二维平面上的点集，凸包就是将最外层的点连接起来构成的凸多边形，它是能包含点集中所有点的。  
 
@@ -2303,7 +2265,7 @@ int main()
 效果图
 ![alt text](./pictures1/image-66.png)
 
-##### （3）比较这两者有什么不同，思考凸包可以用在什么场景
+##### （3）比较这两者有什么不同，思考凸包可以用在什么场景 :white_check_mark:
 
 :robot:  
 轮廓是对象的实际边界线，而凸包是包围对象的最小凸多边形。  
@@ -2324,7 +2286,7 @@ int main()
 
 #### C++
 
-##### （1）使用OpenCV调用电脑摄像头
+##### （1）使用OpenCV调用电脑摄像头 :white_check_mark:
 
 ```cpp
 #include <opencv2/opencv.hpp>
@@ -2437,7 +2399,7 @@ int main()
 
 报错
 ```
-![alt text](image-70.png)
+![alt text](./pictures1/image-70.png)
 [tcp @ 0x564fa08a83c0] Connection to tcp://192.168.43.245:8080 failed: Connection timed out
 [ERROR:0@5.058] global cap.cpp:164 open VIDEOIO(CV_IMAGES): raised OpenCV exception:
 
@@ -2446,7 +2408,7 @@ OpenCV(4.8.0) /home/laoyoutiao/Codes/opencv/modules/videoio/src/cap_images.cpp:2
 应该是连接不上，但原因还没找到
 
 
-##### （3）测算两者的帧率
+##### （3）测算两者的帧率 :white_check_mark:
 
 要测算帧率，要计算播放一定帧数所用的时间，这里采用getTickCount() 函数，
 getTickCount() 是OpenCV中的一个函数，用于获取当前系统的时钟计数（以时钟周期为单位）。
@@ -2519,7 +2481,12 @@ int main() {
 
 出来的帧率不是很稳定，但大致在30fps左右，可以进一步改进  
 
-##### （4）对图像进行中值滤波、均值滤波和高斯滤波。
+##### （4）对图像进行中值滤波、均值滤波和高斯滤波。 :white_check_mark:
+
+中值滤波  
+中值滤波法是一种非线性平滑技术，它将每一像素点的灰度值设置为该点某邻域窗口内的所有像素点灰度值的中值。  
+
+中值滤波是基于排序统计理论的一种能有效抑制噪声的非线性信号处理技术，中值滤波的基本原理是把数字图像或数字序列中一点的值用该点的一个邻域中各点值的中值代替，让周围的像素值接近真实值，从而消除孤立的噪声点。  
 
 ```cpp
 #include <opencv2/opencv.hpp>
@@ -2531,17 +2498,77 @@ int main() {
     
     VideoCapture capture(0);
 
-    Mat frame;
+    Mat frame, dst;
     
     while (true) {
         capture >> frame; // 从摄像头获取新的一帧
-        imshow("Camera", frame);
+        medianBlur(frame, dst, 5);
+        imshow("Camera_origin", frame);
+        imshow("Camera", dst);
         waitKey(30); //每30ms播放一帧
     }
 
     return 0;
 }
 ```
+![alt text](./pictures1/image-73.png)
+
+均值滤波  
+均值滤波是一种简单的图像平滑处理方法，其基本思想是用像素点周围的邻域像素的平均值来代替该像素的值。在图像处理中，均值滤波可以用于去除图像中的噪声，使图像变得更加平滑。  
+```cpp
+#include <opencv2/opencv.hpp>
+#include <iostream>
+using namespace cv;
+using namespace std;
+
+int main() {
+    
+    VideoCapture capture(0);
+
+    Mat frame, dst;
+    
+    while (true) {
+        capture >> frame; // 从摄像头获取新的一帧
+        blur(frame, dst, cv::Size(5, 5));
+        imshow("Camera_origin", frame);
+        imshow("Camera", dst);
+        waitKey(30); //每30ms播放一帧
+    }
+
+    return 0;
+}
+```
+![alt text](./pictures1/image-71.png)
+
+高斯滤波
+```cpp
+#include <opencv2/opencv.hpp>
+#include <iostream>
+using namespace cv;
+using namespace std;
+
+int main() {
+    
+    VideoCapture capture(0);
+
+    Mat frame, dst;
+    
+    while (true) {
+        capture >> frame; // 从摄像头获取新的一帧
+        double sigmaX;//高斯核函数在X方向的的标准偏差
+        double sigmaY;//高斯核函数在Y方向的的标准偏差，若
+        GaussianBlur(frame, dst, cv::Size(5, 5), sigmaX, sigmaY);
+        imshow("Camera_origin", frame);
+        imshow("Camera", dst);
+        waitKey(30); //每30ms播放一帧
+    }
+
+    return 0;
+}
+```
+![alt text](./pictures1/image-72.png)
+
+
 
 #### python
 
@@ -2576,6 +2603,21 @@ int main() {
 # 深度学习（推荐使用pytorch框架）
 
 ## 准备工作
+
+### 配置Colab云服务器
+
+进入云端硬盘，安装Colab云服务器，新建Colib文件  
+设置GPU：修改-笔记本设置-硬件加速器-GPU  
+查看GPU参数  
+```c
+!/opt/bin/nvidia-smi
+```
+![alt text](./pictures2/image-6.png)
+可以看到GPU版本是T4  
+![alt text](./pictures2/image-7.png)
+转载云盘  
+由于是云端，所以本地数据需要上传到云盘，然后Colab从云盘中获取数据。
+
 
 
 ## 深度学习任务
